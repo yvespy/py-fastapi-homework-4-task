@@ -225,7 +225,7 @@ async def activate_account(
         )
 
     user.is_active = True
-    await db.delete(token_record)
+    await db.run_sync(lambda s: s.delete(token_record))
     await db.commit()
     login_link = "http://127.0.0.1:8000/accounts/login/"
     background_tasks.add_task(
